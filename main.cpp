@@ -1,22 +1,25 @@
 #include <iostream>
 #include <string>
-#include "Board.h"
+#include <cstdlib>
+#include <ctime>
 
-using namespace std;
+#include "Game.h"
 
 
-int main() {
-    Board b;
-    int row, col;
-    
+int main() { 
+    char again;
 
-    b.display();
+    do {
+        Game game;
+        game.play();
 
-    b.placeMove(0, 0, 'X');
-    b.placeMove(1, 1, 'O');
+        std::cout << "Play again? (y/n): ";
+        std::cin >> again;
+        again = std::tolower(again);
 
-    b.display();
+    } while (again == 'y');
 
+    std::cout << "Thanks for playing!" << std::endl;
     return 0;
 }
 
