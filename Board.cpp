@@ -73,3 +73,11 @@ bool Board::checkDraw() const {
 bool Board::isCellEmpty(int row, int col) const {
     return grid[row][col] == ' ';
 }
+
+char Board::getCell(int row, int col) const {
+    return grid[row][col];
+}
+
+void Board::setCell(int row, int col, char value) {
+    grid[row][col] = value;
+}
