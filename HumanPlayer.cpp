@@ -8,7 +8,7 @@ HumanPlayer::HumanPlayer(string name, char symbol)
     : Player(name, symbol) {
 }
 
-void HumanPlayer::makeMove(Board& board) {
+void HumanPlayer::makeMove(Board2D& board) {
     int row, col;
 
     while (true) {

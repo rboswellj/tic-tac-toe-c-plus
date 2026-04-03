@@ -1,13 +1,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include "Game.h"
+#include "Game2D.h"
 #include "HumanPlayer.h"
 #include "ComputerPlayer.h"
 
 using namespace std;
 
-Game::Game() {
+Game2D::Game2D() {
     srand(time(0));
 
     player1 = new HumanPlayer("Player", 'X');
@@ -23,12 +23,12 @@ Game::Game() {
     }
 }
 
-Game::~Game() {
+Game2D::~Game2D() {
     delete player1;
     delete player2;
 }
 
-void Game::play() {
+void Game2D::play() {
     board.display();
 
     while (true) {

@@ -8,7 +8,7 @@ private:
     bool validateInput(int move);
 public:
     HumanPlayer(std::string name, char symbol);
-    void makeMove(Board& board) override;
+    void makeMove(Board2D& board) override;
     
 };
 

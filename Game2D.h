@@ -1,20 +1,20 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME2D_H
+#define GAME2D_H
 
-#include "Board.h"
+#include "Board2D.h"
 #include "Player.h"
 
-class Game {
+class Game2D {
 private:
-    Board board;
+    Board2D board;
     Player* player1;
     Player* player2;
     Player* currentPlayer;
 
 public:
-    Game();
+    Game2D();
     void play();
-    ~Game();
+    ~Game2D();
 };
 
 #endif

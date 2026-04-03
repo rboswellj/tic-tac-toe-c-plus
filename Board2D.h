@@ -1,7 +1,7 @@
-#ifndef BOARD_H
-#define BOARD_H
+#ifndef BOARD2D_H
+#define BOARD2D_H
 
-class Board {
+class Board2D {
 private:
     char grid[3][3];
 
@@ -11,7 +11,7 @@ public:
     bool checkWin(char symbol) const;
     bool checkDraw() const;
     bool isCellEmpty(int row, int col) const;
-    Board();
+    Board2D();
     void display() const;
     bool placeMove(int row, int col, char symbol);
 };

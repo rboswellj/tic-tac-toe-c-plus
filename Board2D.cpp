@@ -1,9 +1,9 @@
 #include <iostream>
-#include "Board.h"
+#include "Board2D.h"
 
 using namespace std;
 
-Board::Board() {
+Board2D::Board2D() {
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             grid[i][j] = ' ';
@@ -11,7 +11,7 @@ Board::Board() {
     }
 }
 
-void Board::display() const {
+void Board2D::display() const {
     cout << endl;
     for (int i = 0; i < 3; i++) {
         cout << " " << grid[i][0] << " | " << grid[i][1] << " | " << grid[i][2] << endl;
@@ -22,7 +22,7 @@ void Board::display() const {
     cout << endl;
 }
 
-bool Board::placeMove(int row, int col, char symbol) {
+bool Board2D::placeMove(int row, int col, char symbol) {
     if (grid[row][col] != ' ') {
         return false;
     }
@@ -31,7 +31,7 @@ bool Board::placeMove(int row, int col, char symbol) {
     return true;
 }
 
-bool Board::checkWin(char symbol) const {
+bool Board2D::checkWin(char symbol) const {
     // check rows
     for (int i = 0; i < 3; i++) {
         if (grid[i][0] == symbol && grid[i][1] == symbol && grid[i][2] == symbol) {
@@ -57,7 +57,7 @@ bool Board::checkWin(char symbol) const {
     return false;
 }
 
-bool Board::checkDraw() const {
+bool Board2D::checkDraw() const {
     // loop through rows
     for (int i = 0; i < 3; i++) {
         // loop through columns
@@ -70,14 +70,14 @@ bool Board::checkDraw() const {
     return true;
 }
 
-bool Board::isCellEmpty(int row, int col) const {
+bool Board2D::isCellEmpty(int row, int col) const {
     return grid[row][col] == ' ';
 }
 
-char Board::getCell(int row, int col) const {
+char Board2D::getCell(int row, int col) const {
     return grid[row][col];
 }
 
-void Board::setCell(int row, int col, char value) {
+void Board2D::setCell(int row, int col, char value) {
     grid[row][col] = value;
 }

@@ -8,7 +8,7 @@ ComputerPlayer::ComputerPlayer(string name, char symbol)
     : Player(name, symbol) {
 }
 
-void ComputerPlayer::makeMove(Board& board) {
+void ComputerPlayer::makeMove(Board2D& board) {
     int row, col;
 
     // 2. Try to block the human
@@ -33,7 +33,7 @@ void ComputerPlayer::makeMove(Board& board) {
     board.placeMove(row, col, symbol);
 }
 
-bool ComputerPlayer::findWinningMove(Board& board, char testSymbol, int& row, int& col) {
+bool ComputerPlayer::findWinningMove(Board2D& board, char testSymbol, int& row, int& col) {
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             if (board.isCellEmpty(i, j)) {

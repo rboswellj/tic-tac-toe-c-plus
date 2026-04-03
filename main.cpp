@@ -3,14 +3,15 @@
 #include <cstdlib>
 #include <ctime>
 
-#include "Game.h"
+#include "Game2D.h"
+#include "Board3D.h"
 
 
 int main() { 
     char again;
 
     do {
-        Game game;
+        Game2D game;
         game.play();
 
         std::cout << "Play again? (y/n): ";
@@ -21,5 +22,7 @@ int main() {
 
     std::cout << "Thanks for playing!" << std::endl;
     return 0;
-}
 
+
+
+}
