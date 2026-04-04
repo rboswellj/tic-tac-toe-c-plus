@@ -1,49 +1,20 @@
 #include <iostream>
-#include <cstdlib>
-#include <limits>
 #include "Game3D.h"
+#include "HumanPlayer3D.h"
+#include "ComputerPlayer3D.h"
 
 Game3D::Game3D() : Game() {
+    humanPlayer = new HumanPlayer3D("Human", humanSymbol);
+    computerPlayer = new ComputerPlayer3D("Computer", computerSymbol);
 }
 
-void Game3D::humanMove() {
-    int layer, row, col;
-
-    while (true) {
-        layer = getValidatedInput("Enter board (1-3): ", 1, 3);
-        row = getValidatedInput("Enter row (1-3): ", 1, 3);
-        col = getValidatedInput("Enter column (1-3): ", 1, 3);
-
-        layer--;
-        row--;
-        col--;
-
-        if (!board.placeMove(layer, row, col, humanSymbol)) {
-            std::cout << "Illegal move. That cell is already occupied." << std::endl;
-        }
-        else {
-            break;
-        }
-    }
-}
-
-void Game3D::computerMove() {
-    int layer, row, col;
-
-    do {
-        layer = rand() % 3;
-        row = rand() % 3;
-        col = rand() % 3;
-    } while (!board.isCellEmpty(layer, row, col));
-
-    std::cout << "Computer chooses board " << (layer + 1)
-              << ", row " << (row + 1)
-              << ", column " << (col + 1) << std::endl;
-
-    board.placeMove(layer, row, col, computerSymbol);
+Game3D::~Game3D() {
+    delete humanPlayer;
+    delete computerPlayer;
 }
 
 void Game3D::play() {
+    // Start each round with a fresh board while keeping the running score.
     board = Board3D();
     decideFirstPlayer();
 
@@ -54,21 +25,21 @@ void Game3D::play() {
 
     while (true) {
         if (humanTurn) {
-            humanMove();
+            humanPlayer->makeMove(board);
             board.display();
 
-            if (board.checkWin(humanSymbol)) {
-                std::cout << "Human wins!\n";
+            if (board.checkWin(humanPlayer->getSymbol())) {
+                std::cout << humanPlayer->getName() << " wins!\n";
                 humanWins++;
                 break;
             }
         }
         else {
-            computerMove();
+            computerPlayer->makeMove(board);
             board.display();
 
-            if (board.checkWin(computerSymbol)) {
-                std::cout << "Computer wins!\n";
+            if (board.checkWin(computerPlayer->getSymbol())) {
+                std::cout << computerPlayer->getName() << " wins!\n";
                 computerWins++;
                 break;
             }
@@ -80,6 +51,7 @@ void Game3D::play() {
             break;
         }
 
+        // Alternate turns after a round where no winner was found.
         humanTurn = !humanTurn;
     }
 

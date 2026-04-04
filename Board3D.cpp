@@ -2,6 +2,7 @@
 #include "Board3D.h"
 
 Board3D::Board3D() {
+    // Fill every position in the 3x3x3 grid with blanks.
     for (int layer = 0; layer < 3; layer++) {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -56,7 +57,7 @@ bool Board3D::checkDraw() const {
 }
 
 bool Board3D::checkWin(char symbol) const {
-    // Check rows, columns, and diagonals in each layer
+    // First, look for standard 2D wins inside each individual layer.
     for (int layer = 0; layer < 3; layer++) {
         for (int i = 0; i < 3; i++) {
             if (grid[layer][i][0] == symbol &&
@@ -85,7 +86,7 @@ bool Board3D::checkWin(char symbol) const {
         }
     }
 
-    // Check vertical lines across layers
+    // Then check lines that stay in the same row and column across layers.
     for (int row = 0; row < 3; row++) {
         for (int col = 0; col < 3; col++) {
             if (grid[0][row][col] == symbol &&
@@ -96,7 +97,7 @@ bool Board3D::checkWin(char symbol) const {
         }
     }
 
-    // Check diagonals across layers with fixed row
+    // These diagonals move through layers while keeping the row fixed.
     for (int row = 0; row < 3; row++) {
         if (grid[0][row][0] == symbol &&
             grid[1][row][1] == symbol &&
@@ -111,7 +112,7 @@ bool Board3D::checkWin(char symbol) const {
         }
     }
 
-    // Check diagonals across layers with fixed column
+    // These diagonals move through layers while keeping the column fixed.
     for (int col = 0; col < 3; col++) {
         if (grid[0][0][col] == symbol &&
             grid[1][1][col] == symbol &&
@@ -126,7 +127,7 @@ bool Board3D::checkWin(char symbol) const {
         }
     }
 
-    // Check full 3D space diagonals
+    // Finally, check the four long diagonals that cross the entire cube.
     if (grid[0][0][0] == symbol &&
         grid[1][1][1] == symbol &&
         grid[2][2][2] == symbol) {

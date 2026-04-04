@@ -10,6 +10,7 @@ Game::Game()
 }
 
 void Game::decideFirstPlayer() {
+    // Randomize the opening turn so neither side always starts first.
     humanTurn = (rand() % 2 == 0);
 }
 
@@ -28,11 +29,13 @@ int Game::getValidatedInput(const std::string& prompt, int min, int max) {
         std::cin >> value;
 
         if (std::cin.fail()) {
+            // Clear the failed state before asking again.
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Invalid input. Please enter a number." << std::endl;
         }
         else if (value < min || value > max) {
+            // Discard the rest of the line so the next prompt starts cleanly.
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Invalid input. Please enter a value between "
                       << min << " and " << max << "." << std::endl;

@@ -3,17 +3,18 @@
 
 #include "Game.h"
 #include "Board3D.h"
+#include "Player3D.h"
 
 class Game3D : public Game {
 private:
     Board3D board;
-
-    void humanMove();
-    void computerMove();
+    Player3D* humanPlayer;
+    Player3D* computerPlayer;
 
 public:
     Game3D();
     void play() override;
+    ~Game3D();
 };
 
 #endif

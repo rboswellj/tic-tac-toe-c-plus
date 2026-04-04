@@ -2,7 +2,6 @@
 #define PLAYER_H
 
 #include <string>
-#include "Board2D.h"
 
 class Player {
 protected:
@@ -11,11 +10,8 @@ protected:
 
 public:
     Player(std::string name, char symbol);
-    virtual void makeMove(Board2D& board) = 0;
-
     std::string getName() const;
     char getSymbol() const;
-
     virtual ~Player() = default;
 };
 

@@ -33,6 +33,7 @@ int main() {
             break;
         }
 
+        // Use the shared Game interface so the menu can launch either mode.
         Game* game = nullptr;
         if (choice == 1) {
             game = new Game2D();

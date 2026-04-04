@@ -4,6 +4,7 @@
 using namespace std;
 
 Board2D::Board2D() {
+    // Fill every cell with a blank space to mark the board as empty.
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             grid[i][j] = ' ';
@@ -58,9 +59,8 @@ bool Board2D::checkWin(char symbol) const {
 }
 
 bool Board2D::checkDraw() const {
-    // loop through rows
+    // Any remaining blank cell means the game can still continue.
     for (int i = 0; i < 3; i++) {
-        // loop through columns
         for (int j = 0; j < 3; j++) {
             if (grid[i][j] == ' ') {
                 return false;
