@@ -1,56 +1,85 @@
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
+#include <limits>
 #include "Game2D.h"
-#include "HumanPlayer.h"
-#include "ComputerPlayer.h"
 
-using namespace std;
+Game2D::Game2D() : Game() {
+}
 
-Game2D::Game2D() {
-    srand(time(0));
+void Game2D::humanMove() {
+    int row, col;
 
-    player1 = new HumanPlayer("Player", 'X');
-    player2 = new ComputerPlayer("Computer", 'O');
+    while (true) {
+        row = getValidatedInput("Enter row (1-3): ", 1, 3);
+        col = getValidatedInput("Enter column (1-3): ", 1, 3);
 
-    // randomly choose who goes first
-    if (rand() % 2 == 0) {
-        currentPlayer = player1;
-        cout << "Player goes first!" << endl;
-    } else {
-        currentPlayer = player2;
-        cout << "Computer goes first!" << endl;
+        row--;
+        col--;
+
+        if (!board.placeMove(row, col, humanSymbol)) {
+            std::cout << "Illegal move. That cell is already occupied." << std::endl;
+        }
+        else {
+            break;
+        }
     }
 }
 
-Game2D::~Game2D() {
-    delete player1;
-    delete player2;
+void Game2D::computerMove() {
+    int row, col;
+
+    do {
+        row = rand() % 3;
+        col = rand() % 3;
+    } while (!board.isCellEmpty(row, col));
+
+    std::cout << "Computer chooses row " << (row + 1)
+              << ", column " << (col + 1) << std::endl;
+
+    board.placeMove(row, col, computerSymbol);
 }
 
 void Game2D::play() {
+    board = Board2D();   // reset board
+    decideFirstPlayer();
+
+    std::cout << "\nStarting 2D Tic-Tac-Toe..." << std::endl;
+    std::cout << (humanTurn ? "Human goes first!" : "Computer goes first!") << std::endl;
+
     board.display();
 
     while (true) {
-        currentPlayer->makeMove(board);
+        if (humanTurn) {
+            humanMove();
 
-        board.display();
+            board.display();
 
-        if (board.checkWin(currentPlayer->getSymbol())) {
-            cout << currentPlayer->getName() << " wins!" << endl;
-            break;
+            if (board.checkWin(humanSymbol)) {
+                std::cout << "Human wins!" << std::endl;
+                humanWins++;
+                break;
+            }
+        }
+        else {
+            computerMove();
+
+            board.display();
+
+            if (board.checkWin(computerSymbol)) {
+                std::cout << "Computer wins!" << std::endl;
+                computerWins++;
+                break;
+            }
         }
 
         if (board.checkDraw()) {
-            cout << "It's a draw!" << endl;
+            std::cout << "It's a draw!" << std::endl;
+            draws++;
             break;
         }
 
-        // switch players
-        if (currentPlayer == player1) {
-            currentPlayer = player2;
-        } else {
-            currentPlayer = player1;
-        }
+        humanTurn = !humanTurn;
     }
+
+    displayScore();
 }
